@@ -17,13 +17,14 @@ public class PHY_Invitation_Log {
 	private String btn_reset = "//a[normalize-space()='Reset']";
 	private String field_search = "//input[@type='search']";
     private String userTypeColumn = "//table[class='dataTables_wrapper no-footer']//td[4]";
-    private String userTypePhy = "//table[@id='DataTables_Table_1']//tbody//td[1]";
+//    private String userTypePhy = "//table[@id='DataTables_Table_1']//tbody//td[1]";
+    private String userTypePhy = "(//table[@id='DataTables_Table_1']//tbody//td[1])[1]";
     private String userTypeAdmin = "(//table[@id='DataTables_Table_1']//tbody//td[1])[1]";
     private String link_Resend = "(//a[contains(text(),'Resend')])";
 	private String msg_confirm = "//div[@id='swal2-html-container']";
 	private String btn_Ok = "//button[normalize-space()='OK']";
 
-	
+	 
 	// Page constructor
     public PHY_Invitation_Log(Page page, Properties prop) {
         this.page = page;
@@ -113,7 +114,7 @@ public class PHY_Invitation_Log {
         System.out.println("Searched for Phy: " + searchResult);
     }
     
-    
+     
     public void clearSearchField() {
     	page.locator(field_search).selectText();
 //    	  page.locator(field_search).press("Control+A");

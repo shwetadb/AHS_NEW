@@ -178,7 +178,7 @@ public class ExtentReportListener implements ITestListener {
 
     private static final ExtentReports extent = init();
     private static final Logger log = LogManager.getLogger(ExtentReportListener.class); // Logger setup
-    private static final ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+    public static final ThreadLocal<ExtentTest> test = new ThreadLocal<>();
 
     /**
      * Initialize the Extent Report.

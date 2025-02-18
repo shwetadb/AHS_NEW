@@ -18,7 +18,7 @@ public class PHY_Dashboard {
 	private String btn_homePage = "//div[normalize-space()='Dashboard / Home Page']";
 		protected String msg_Welcome = "(//h2[contains(text(),'Welcome to the Elemrex Physician/Specialist Referr')])[1]";
 	private String btn_reviewProfile = "//div[normalize-space()='Review Profile']";
-		private String heading_reviewProfile = "//b[normalize-space()='Physician Profile']";
+		private String heading_reviewProfile = "//b[normalize-space()='Physician Profile']"; 
 	private String btn_administrator = "//div[normalize-space()='Administrators']";
 		private String heading_administrator = "//h5[normalize-space()='Administrative access list']";
 	private String btn_adminActivityReport = "//div[normalize-space()='Admin Activity Report']";

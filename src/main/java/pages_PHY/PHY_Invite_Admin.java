@@ -115,6 +115,7 @@ public class PHY_Invite_Admin {
     
     public String getCreatedAdmin() {
     	String getAdmin = page.innerText(userTypeColumn1);
+    	System.out.println(getAdmin);
     	return getAdmin;
     }
     

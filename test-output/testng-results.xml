@@ -1,149 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="1" failed="1" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-02-14T10:09:58 IST" name="Default suite" finished-at="2025-02-14T10:10:34 IST" duration-ms="35247">
+  <suite started-at="2025-02-17T16:38:31 IST" name="Default suite" finished-at="2025-02-17T16:39:17 IST" duration-ms="46592">
     <groups>
     </groups>
-    <test started-at="2025-02-14T10:09:58 IST" name="Default test" finished-at="2025-02-14T10:10:34 IST" duration-ms="35247">
-      <class name="tests.pages_PHY.PHY_01_Login_Process_Test">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b]" started-at="2025-02-14T10:09:58 IST" name="setUp" finished-at="2025-02-14T10:10:15 IST" duration-ms="16102" status="PASS">
+    <test started-at="2025-02-17T16:38:31 IST" name="Default test" finished-at="2025-02-17T16:39:17 IST" duration-ms="46592">
+      <class name="tests.pages_PHY.PHY_04_Administration_Edit_Test">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.pages_PHY.PHY_04_Administration_Edit_Test@4fbda97b]" started-at="2025-02-17T16:38:31 IST" name="setUp" finished-at="2025-02-17T16:38:43 IST" duration-ms="12209" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="appLoginSetup()[pri:0, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b]" started-at="2025-02-14T10:10:15 IST" name="appLoginSetup" finished-at="2025-02-14T10:10:15 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="appLoginSetup()[pri:0, instance:tests.pages_PHY.PHY_04_Administration_Edit_Test@4fbda97b]" started-at="2025-02-17T16:38:43 IST" name="appLoginSetup" finished-at="2025-02-17T16:39:09 IST" duration-ms="26215" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- appLoginSetup -->
-        <test-method signature="TestValidLogin()[pri:1, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b]" started-at="2025-02-14T10:10:15 IST" name="TestValidLogin" description="Verify login with correct credentials" finished-at="2025-02-14T10:10:30 IST" duration-ms="15076" status="FAIL">
-          <exception class="com.microsoft.playwright.TimeoutError">
-            <message>
-              <![CDATA[Error {
-  message='Timeout 10000ms exceeded.
-  name='TimeoutError
-  stack='TimeoutError: Timeout 10000ms exceeded.
-    at ProgressController.run (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\progress.js:87:26)
-    at Frame.waitForSelector (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\frames.js:619:23)
-    at FrameDispatcher.waitForSelector (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\frameDispatcher.js:106:103)
-    at FrameDispatcher._handleCommand (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\dispatcher.js:94:40)
-    at DispatcherConnection.dispatch (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\dispatcher.js:362:39)
-}
-Call log:
-- waiting for locator("//body/app-root/app-doctor-dashboard/app-header/nav/div/div[2]") to be visible
-]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[com.microsoft.playwright.TimeoutError: Error {
-  message='Timeout 10000ms exceeded.
-  name='TimeoutError
-  stack='TimeoutError: Timeout 10000ms exceeded.
-    at ProgressController.run (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\progress.js:87:26)
-    at Frame.waitForSelector (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\frames.js:619:23)
-    at FrameDispatcher.waitForSelector (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\frameDispatcher.js:106:103)
-    at FrameDispatcher._handleCommand (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\dispatcher.js:94:40)
-    at DispatcherConnection.dispatch (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\dispatcher.js:362:39)
-}
-Call log:
-- waiting for locator("//body/app-root/app-doctor-dashboard/app-header/nav/div/div[2]") to be visible
-
-at com.microsoft.playwright.impl.WaitableResult.get(WaitableResult.java:52)
-at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:120)
-at com.microsoft.playwright.impl.Connection.sendMessage(Connection.java:129)
-at com.microsoft.playwright.impl.ChannelOwner.sendMessage(ChannelOwner.java:106)
-at com.microsoft.playwright.impl.FrameImpl.waitForSelectorImpl(FrameImpl.java:1060)
-at com.microsoft.playwright.impl.FrameImpl.waitForSelectorImpl(FrameImpl.java:1050)
-at com.microsoft.playwright.impl.PageImpl.lambda$waitForSelector$92(PageImpl.java:1457)
-at com.microsoft.playwright.impl.LoggingSupport.withLogging(LoggingSupport.java:47)
-at com.microsoft.playwright.impl.ChannelOwner.withLogging(ChannelOwner.java:89)
-at com.microsoft.playwright.impl.PageImpl.waitForSelector(PageImpl.java:1456)
-at pages.LoginProcess.getElemrexLogo(LoginProcess.java:119)
-at tests.pages_PHY.PHY_01_Login_Process_Test.TestValidLogin(PHY_01_Login_Process_Test.java:38)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-at org.testng.TestRunner.privateRun(TestRunner.java:739)
-at org.testng.TestRunner.run(TestRunner.java:614)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
-at org.testng.SuiteRunner.run(SuiteRunner.java:312)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
-at org.testng.TestNG.runSuites(TestNG.java:1112)
-at org.testng.TestNG.run(TestNG.java:1079)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-Caused by: com.microsoft.playwright.TimeoutError: Error {
-  message='Timeout 10000ms exceeded.
-  name='TimeoutError
-  stack='TimeoutError: Timeout 10000ms exceeded.
-    at ProgressController.run (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\progress.js:87:26)
-    at Frame.waitForSelector (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\frames.js:619:23)
-    at FrameDispatcher.waitForSelector (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\frameDispatcher.js:106:103)
-    at FrameDispatcher._handleCommand (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\dispatcher.js:94:40)
-    at DispatcherConnection.dispatch (C:\Users\kaver\AppData\Local\Temp\playwright-java-2468281784567901877\package\lib\server\dispatchers\dispatcher.js:362:39)
-}
-Call log:
-- waiting for locator("//body/app-root/app-doctor-dashboard/app-header/nav/div/div[2]") to be visible
-
-at com.microsoft.playwright.impl.Connection.dispatch(Connection.java:252)
-at com.microsoft.playwright.impl.Connection.processOneMessage(Connection.java:209)
-at com.microsoft.playwright.impl.ChannelOwner.runUntil(ChannelOwner.java:118)
-... 38 more
-]]>
-            </full-stacktrace>
-          </exception> <!-- com.microsoft.playwright.TimeoutError -->
+        <test-method signature="editCOE_Test()[pri:4, instance:tests.pages_PHY.PHY_04_Administration_Edit_Test@4fbda97b]" started-at="2025-02-17T16:39:09 IST" name="editCOE_Test" description="Edit COE Functionality Test" finished-at="2025-02-17T16:39:12 IST" duration-ms="2804" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TestValidLogin -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b]" started-at="2025-02-14T10:10:30 IST" name="tearDown" finished-at="2025-02-14T10:10:30 IST" duration-ms="31" status="PASS">
+        </test-method> <!-- editCOE_Test -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:tests.pages_PHY.PHY_04_Administration_Edit_Test@4fbda97b]" started-at="2025-02-17T16:39:12 IST" name="tearDown" finished-at="2025-02-17T16:39:17 IST" duration-ms="4881" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=TestValidLogin status=FAILURE method=PHY_01_Login_Process_Test.TestValidLogin()[pri:1, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b] output={null}]]]>
+                <![CDATA[[TestResult name=editCOE_Test status=SUCCESS method=PHY_04_Administration_Edit_Test.editCOE_Test()[pri:4, instance:tests.pages_PHY.PHY_04_Administration_Edit_Test@4fbda97b] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method signature="TestUnsuccessfullogin()[pri:2, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b]" started-at="2025-02-14T10:10:30 IST" name="TestUnsuccessfullogin" description="Verify Unsuccessful login with Incorrect credentials" finished-at="2025-02-14T10:10:33 IST" duration-ms="3692" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TestUnsuccessfullogin -->
-        <test-method is-config="true" signature="appLoginSetup()[pri:0, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b]" started-at="2025-02-14T10:10:30 IST" name="appLoginSetup" finished-at="2025-02-14T10:10:30 IST" duration-ms="0" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- appLoginSetup -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b]" started-at="2025-02-14T10:10:33 IST" name="tearDown" finished-at="2025-02-14T10:10:33 IST" duration-ms="20" status="PASS">
+        <test-method is-config="true" signature="tearDownAll(org.testng.ITestContext)[pri:0, instance:tests.pages_PHY.PHY_04_Administration_Edit_Test@4fbda97b]" started-at="2025-02-17T16:39:17 IST" name="tearDownAll" finished-at="2025-02-17T16:39:17 IST" duration-ms="416" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=TestUnsuccessfullogin status=SUCCESS method=PHY_01_Login_Process_Test.TestUnsuccessfullogin()[pri:2, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b] output={null}]]]>
+                <![CDATA[org.testng.TestRunner@7573e12f]]>
               </value>
             </param>
           </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownAll()[pri:0, instance:tests.pages_PHY.PHY_01_Login_Process_Test@fd8294b]" started-at="2025-02-14T10:10:33 IST" name="tearDownAll" finished-at="2025-02-14T10:10:34 IST" duration-ms="279" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownAll -->
-      </class> <!-- tests.pages_PHY.PHY_01_Login_Process_Test -->
+      </class> <!-- tests.pages_PHY.PHY_04_Administration_Edit_Test -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

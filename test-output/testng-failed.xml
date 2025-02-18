@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.pages_PHY.PHY_01_Login_Process_Test">
+      <class name="tests.pages_PHY.PHY_04_Administration_Edit_Test">
         <methods>
           <include name="setUp"/>
-          <include name="TestValidLogin"/>
           <include name="tearDown"/>
           <include name="tearDownAll"/>
           <include name="appLoginSetup"/>
+          <include name="editCOE_Test"/>
         </methods>
-      </class> <!-- tests.pages_PHY.PHY_01_Login_Process_Test -->
+      </class> <!-- tests.pages_PHY.PHY_04_Administration_Edit_Test -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -23,7 +23,7 @@ public class PHY_Invite_Physician {
 	private String alert_mobile = "//div[contains(text(),'Please Enter Mobile.')]";
 	private String alert_email = "//div[contains(text(),'Please Enter Email.')]";
 	private String btn_Ok = "//button[normalize-space()='OK']";
-	private String msg_confirm = "//div[@id='swal2-html-container']";
+	private String msg_confirm = "//div[@id='swal2-html-container']"; 
     private String userTypeColumn1 = "//table[@id='DataTables_Table_1']//tbody//td[1]";
 
 	
@@ -87,9 +87,10 @@ public class PHY_Invite_Physician {
         }
          
 
-        
+         
         public String getCreatedPhy() {
         	String getPhy = page.innerText(userTypeColumn1);
+        	System.out.println(getPhy);
         	return getPhy;
         }
 }

@@ -23,7 +23,7 @@ public class PHY_01_Login_Process_Test extends BaseTest {
     @BeforeMethod
     public void appLoginSetup() throws InterruptedException {
 		login = new LoginProcess(page);
-    	log.info("Before method");
+    	log.info("Before method"); 
     	
     }
 

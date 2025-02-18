@@ -8,6 +8,7 @@ import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.microsoft.playwright.Tracing;
 import com.microsoft.playwright.options.LoadState;
 
 import base.BaseTest;
@@ -26,8 +27,9 @@ public class PHY_03_Profile_Test extends BaseTest {
 	
     @BeforeMethod
     public void appLoginSetup() throws InterruptedException {
+        // ✅ Start tracing ONLY if browser context is successfully initialized
         log.info("Before method"); 
-        page.navigate(prop.getProperty("url").trim());
+        page.navigate(prop.getProperty("url").trim()); 
         page.waitForLoadState(LoadState.LOAD);
 
         login = new LoginProcess(page);

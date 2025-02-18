@@ -20,7 +20,7 @@ public class PHY_07_Invitation_Log_Test extends BaseTest {
 	
 	private static final Logger log = LogManager.getLogger(PHY_02_Dashboard_Nav_Test.class);
 	public BaseTest base;
-    public LoginProcess login;
+    public LoginProcess login; 
     public PHY_Dashboard dashboard;
     public PHY_Administration adminPage; 
     public PHY_Invite_Physician invitePhy;
@@ -37,7 +37,7 @@ public class PHY_07_Invitation_Log_Test extends BaseTest {
         login.doLogin(prop.getProperty("username").trim(), prop.getProperty("password").trim(), prop.getProperty("otp").trim());
 
         System.out.println("Navigated to: Dashboard- " + login.gePHYtWelcomMsg());
-
+ 
         dashboard = new PHY_Dashboard(page);
         dashboard.goToAdministrator();
 
@@ -50,32 +50,33 @@ public class PHY_07_Invitation_Log_Test extends BaseTest {
 
     
     
-//    @Test (priority = 1, description = "Apply Filter by User Role")
-//    public void VerifyUserRole_Test() throws InterruptedException {  
-//
-//        // Verify if all users are "Administrative"
-//        boolean admin = inviteLog.verifyAllUsersAreAdmins();
-//        page.waitForLoadState(LoadState.LOAD);
-//        Assert.assertTrue(admin, "Some users are not 'Administrative'");
-//        Thread.sleep(1000);
-//     // Verify if all users are "Physicians"
-//        boolean physician = inviteLog.verifyAllUsersArePhysicians();
-//        page.waitForLoadState(LoadState.LOAD);
-//        Assert.assertTrue(physician, "Some users are not 'Physicians'");
-//        
-//        inviteLog.clickReset();
-//        page.waitForLoadState(LoadState.LOAD);
-//        log.info("✅ Test Passed: Apply Filter by User Role are working correctly.");
-//
-//    }
+    @Test (priority = 1, description = "Apply Filter by User Role")
+    public void VerifyUserRole_Test() throws InterruptedException {  
+
+        // Verify if all users are "Administrative"
+        boolean admin = inviteLog.verifyAllUsersAreAdmins();
+        page.waitForLoadState(LoadState.LOAD);
+        Assert.assertTrue(admin, "Some users are not 'Administrative'");
+        Thread.sleep(1000);
+     // Verify if all users are "Physicians"
+        boolean physician = inviteLog.verifyAllUsersArePhysicians();
+        page.waitForLoadState(LoadState.LOAD);
+        Assert.assertTrue(physician, "Some users are not 'Physicians'");
+        
+        inviteLog.clickReset();
+        page.waitForLoadState(LoadState.LOAD);
+        log.info("✅ Test Passed: Apply Filter by User Role are working correctly.");
+
+    }
     
     
     
     @Test (priority = 2, description = "Search the invited Physician or Admin")
     public void searchInvite_Test() {
     	inviteLog.searchInvitePhy();
-        page.waitForLoadState(LoadState.LOAD);
-        Assert.assertEquals(invitePhy.getCreatedPhy(), prop.getProperty("newPhyName"));     
+        invitePhy = new PHY_Invite_Physician(page, prop);
+        Assert.assertEquals(invitePhy.getCreatedPhy(), prop.getProperty("newPhyName"));
+
         
         inviteLog.clearSearchField();
         inviteLog.searchInviteAdmin();

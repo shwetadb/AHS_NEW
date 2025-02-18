@@ -20,7 +20,7 @@ public class PHY_02_Dashboard_Nav_Test extends BaseTest {
 	private static final Logger log = LogManager.getLogger(PHY_02_Dashboard_Nav_Test.class);
 	public BaseTest base;
     public LoginProcess login;
-    public PHY_Dashboard dashboard;
+    public PHY_Dashboard dashboard; 
     
 
 	

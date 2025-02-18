@@ -1,5 +1,7 @@
 package tests.pages_PHY;
 
+import static org.testng.Assert.assertEquals;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -23,7 +25,7 @@ public class PHY_04_Administration_Edit_Test extends BaseTest {
     public LoginProcess login;
     public PHY_Dashboard dashboard;
     public PHY_Administration adminPage; 
-	
+	 
     @BeforeMethod
     public void appLoginSetup() throws InterruptedException {
         log.info("Before method"); 
@@ -32,14 +34,10 @@ public class PHY_04_Administration_Edit_Test extends BaseTest {
 
         login = new LoginProcess(page);
         login.doLogin(prop.getProperty("username").trim(), prop.getProperty("password").trim(), prop.getProperty("otp").trim());
-
-        System.out.println("Navigated to: Dashboard- " + login.gePHYtWelcomMsg());
-
+ 
         dashboard = new PHY_Dashboard(page);
-        System.out.println("nav to dash");
+        
         dashboard.goToAdministrator();
-        System.out.println("nav to admin");
-
         adminPage = new PHY_Administration(page, prop);
     }
 
@@ -66,7 +64,7 @@ public class PHY_04_Administration_Edit_Test extends BaseTest {
 
     
     
-    @Test (priority = 2, description = "Button Navigation Test")
+    @Test (priority = 2, description = "Administration Page Button Navigation Test")
     public void VerifyButtonNav_Test() throws InterruptedException { 
     	adminPage.clickNewPhysician();
     	adminPage.getNewPhysicianHeading();
@@ -82,10 +80,30 @@ public class PHY_04_Administration_Edit_Test extends BaseTest {
     	
     	adminPage.clickPhyHomeBtn();
 //    	AssertJUnit.assertEquals(dashboard.getHomePageHeading(), AppConstants.DASHBOARD_WELCOME_MSG);
-        log.info("✅ Test Passed: Button Navigation Test are working correctly.");
+        log.info("✅ Test Passed: Button Navigation are working correctly.");
 
+    } 
+    
+    
+    
+    
+    @Test (priority = 3, description = "Administration Page Search Functionality Test")
+    public void VerifySearch_Test() throws InterruptedException { 
+    	adminPage.searchPhy();
+    	adminPage.searchAdmin();    
+    	log.info("✅ Test Passed: Administration Page Search Functionality are working correctly.");
     }
-    
-    
 
+    
+    
+    @Test (priority = 4, description = "Edit COE Functionality Test")
+    public void editCOE_Test() throws InterruptedException { 
+    	adminPage.searchPhy();
+    	System.out.println("found Phy");
+    	adminPage.clickCOEIcon();  
+    	adminPage.clickOK();
+    	log.info("✅ Test Passed: Edit COE Functionality are working correctly.");
+    }
+
+    
 }
