@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 import com.microsoft.playwright.Locator;
 	import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.LoadState;
 
 import constants.AppConstants;
@@ -26,15 +27,16 @@ import constants.AppConstants;
 		private String dropDwn_userRole = "//select[@name='userRoleVal']";
 		private String btn_reset = "//a[normalize-space()='Reset']";
 		private String icon_email = "//td[normalize-space()='STQFL@yopmail.com']//img";
+			private String heading_email = "//h5[@id='add-user-form-1-modalLabel']";
+			private String field_messageEmail = "//textarea[@name='emailLogTxt']";
+			private String btn_emailSubmit = "//button[normalize-space()='Submit']";
+			private String btn_emailClose = "//button[normalize-space()='Close']";
 		private String field_search = "//input[@type='search']";
 		private String icon_coe = "(//tr[@class='odd'])[1]//td[5]";
-		//button[@class='btn btn-sm btn-default']
-		//tr[@class='odd']//button[@class='btn btn-sm btn-success']
-		//button[@class='btn btn-sm btn-success'])[5]
 		private String icon_edit = "//button[@class='btn btn-sm btn-warning']";
-		private String icon_onBehalfOf = "(//button[@class='btn btn-sm btn-default'])[1]";
-		private String icon_status = "//span[@aria-label='Basic example']//button[@class='btn btn-sm btn-primary']";
-//	    private String userTypeColumn = "//table[@id='DataTables_Table_1']//td[4]";
+		private String icon_onBehalfOf = "(//tr[@class='odd'])[1]//td[6]";
+		private String icon_status = "(//tr[@class='odd'])[1]//td[8]";
+		//span[@aria-label='Basic example']//button[@class='btn btn-sm btn-primary']
 		
 	    private String userTypeColumn = "//table[class='dataTables_wrapper no-footer']//td[4]";
 	    private String heading_newPhy = "//div[@class='search-input-area company-lable']";
@@ -44,13 +46,17 @@ import constants.AppConstants;
 	    private String btn_back = "//a[normalize-space()='Back']";
 	    private String userTypePhy = "//td[@class='sorting_1']";
 	    private String userTypeAdmin = "//td[@class='sorting_1']";
-		private String msg_confirm = "//div[@id='swal2-html-container']"; 
-		private String msg_alert = "(//div[@id='swal2-html-container'])[1]";
+//		private String msg_sucess = "(//div[@id='swal2-html-container'])"; 
+	    private String msg_success = "//div[@class='swal2-html-container' and @id='swal2-html-container']";
+
+		private String msg_Head = "//h2[@id='swal2-title']";
+		private String msg_confirm = "(//div[@id='swal2-html-container'])[1]";
 		private String btn_Ok = "//button[normalize-space()='OK']";
+		private String btn_OkSucess = "//button[@class='swal2-confirm swal2-styled' and @type='button']";
 
 
 	    
-	    
+	    //div[@class='swal2-confirm swal2-styled' type='button']
 	    
 		
 		// Page constructor
@@ -137,9 +143,9 @@ import constants.AppConstants;
 	    public Page clickNewPhysician() {
 	    	page.click(btn_newPhysician);
 	    	page.waitForLoadState();
-	    	System.out.println("clicked: New Phy");
 	    	return page;
 	    }
+	    
 	    
 	    
 	    public void getNewPhysicianHeading() {
@@ -149,12 +155,15 @@ import constants.AppConstants;
 	    	page.waitForLoadState();
 	    }
 	    
+	    
+	    
 	    public Page clickNewAdmin() {
 	    	page.click(btn_newAdmin);
 	    	page.waitForLoadState();
-	    	System.out.println("clicked: New Admin");
 	    	return page;
 	    }
+	    
+	    
 	    
 	    public void getNewAdminHeading() {
 	    	String newAdminHeading = page.innerText(heading_newPhy);
@@ -163,12 +172,15 @@ import constants.AppConstants;
 	    	page.waitForLoadState();
 	    }
 	    
+	    
+	    
 	    public Page clickInvitationLog() {
 	    	page.click(btn_invitationLog);
 	    	page.waitForLoadState();
-	    	System.out.println("clicked invite log");
 	    	return page;
 	    }
+	    
+	    
 	    
 	    public void getInvitationLogHeading() {
 	    	String invitationLogHeading = page.innerText(heading_invitationLog);
@@ -180,17 +192,20 @@ import constants.AppConstants;
 	    }
 	    
 	    
+	    
 	    public Page clickPhyHomeBtn() {
 	    	page.click(btn_PhyHomePage);
 	    	page.waitForLoadState();
-	    	System.out.println("clicked: Home Page"); 
 	    	return page;
 	    }
+	    
 	    
 	    
 	    public void clickCancel() {
 	    	page.click(btn_cancel);
 	    }
+	    	    
+	    
 	    
 	    public void clickBack() {
 	    	page.click(btn_back);
@@ -216,38 +231,95 @@ import constants.AppConstants;
 	    }
 	    
 	    
+    
+	    public void clickCOEIcon() throws InterruptedException {
+	    	page.waitForSelector(icon_coe);
+	    	page.click(icon_coe);
+	    	
+	    	this.clickOk();
+
+	        page.waitForSelector(msg_success);  
+	        String successMessage = page.innerText(msg_success); 
+
+	        if (successMessage.contains("please contact your Primary Physician")) {
+		        System.out.println("Non Primary Alert: " + successMessage);
+	        } else {
+	            System.out.println("Confirm Message: " + successMessage);
+	            page.click(btn_OkSucess);
+	        }
+	        
+	        System.out.println("✅ Changed COE");
+
+	    }
+	    
+	     	    
+	    
+	    public void clickOnBehalfOfIcon() throws InterruptedException {
+	        page.waitForSelector(icon_onBehalfOf);
+	        page.click(icon_onBehalfOf);
+
+	        this.clickOk();
+
+	        page.waitForSelector(msg_success);  
+	        String successMessage = page.innerText(msg_success); 
+
+	        if (successMessage.contains("successfully")) {
+		        System.out.println("Success: " + successMessage);
+	        } else {
+	            System.out.println("Unexpected success message: " + successMessage);
+	        }
+
+	        page.click(btn_OkSucess);
+	        System.out.println("✅ Changed On Behalf of");
+
+	    }
 
 	    
 	    
-	    public void clickCOEIcon() {
-	    	page.waitForSelector(icon_coe);
-	    	page.click(icon_coe);
-	    	System.out.println("clicked coe");
+	    public void clickStatusIcon() {
+	    	page.waitForSelector(icon_status);
+	    	page.click(icon_status);
 	    	
-	    	String alertMessage = page.innerText(msg_alert);
-            System.out.println("Confirmation: " + alertMessage);
-            page.click(btn_Ok);
-            System.out.println("clicked ok");
-            page.waitForLoadState(LoadState.LOAD);
-	    }
-	    
-	    public void clickOK() {
-	    	String confirmationMessage = page.innerText(msg_confirm);
-            System.out.println("Confirmation: " + confirmationMessage);
-            page.click(btn_Ok);
-            System.out.println("clicked ok");
+	    	this.clickOk();
+	        System.out.println("✅ Changed Status");
 	    }
 	    
 	    
-	    public void clickOnBehalfOfIcon() {
-	    	page.waitForSelector(icon_coe);
-	    	page.click(icon_coe);
-	    	System.out.println("clicked coe");
-	    	
-	    	String alertMessage = page.innerText(msg_alert);
-            System.out.println("Confirmation: " + alertMessage);
-            page.click(btn_Ok);
-        }
+	    
+	    public void clickEmailIcon() {
+	    	page.locator("tr:has(td:text('yopmail.com')) img").nth(0).click();
+	    	page.waitForLoadState(LoadState.LOAD);
+	    }
+	    
+	    public void clickOk() {
+	    	page.waitForLoadState(LoadState.LOAD);
+	    	String alertMessage = page.innerText(msg_confirm);
+	        System.out.println("Confirmation: " + alertMessage);
+	        page.click(btn_Ok);
+	    }
+	    	    
+	    public void getEmailContent() {
+	    	page.fill(field_messageEmail, prop.getProperty("emailContent"));	
+	    }
+	    
+	    public void clickSubmit() {
+	    	page.waitForSelector(btn_emailSubmit);
+	    	page.click(btn_emailSubmit);
+	    }
+	        
+	    public void doEmailProcess() {
+	    	this.clickEmailIcon();
+	    	page.waitForLoadState(LoadState.LOAD);
+	    	this.clickSubmit();
+	    	page.waitForLoadState(LoadState.LOAD);
+	    	this.clickOk();
+	    	page.waitForLoadState(LoadState.LOAD);
+	    	this.getEmailContent();
+	    	page.waitForLoadState(LoadState.LOAD);
+	    	this.clickSubmit();
+	    	page.waitForLoadState(LoadState.LOAD);
+	    	this.clickOk();
+	    }
 	    
 	    
 	    

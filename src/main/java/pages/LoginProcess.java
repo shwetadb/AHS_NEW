@@ -67,7 +67,7 @@ public class LoginProcess {
 	 */
 	
 	public Page doLogin(String appUserName, String appPassword, String appOtp) {
-	    System.out.println("App credentials: " + appUserName + " → " + appPassword);
+//	    System.out.println("App credentials: " + appUserName + " → " + appPassword);
 
 	    // Fill in the email and password fields
 	    page.locator(field_email).fill(appUserName);
@@ -81,7 +81,7 @@ public class LoginProcess {
 	      // Click Login
 	      page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Login")).click();
 
-        System.out.println("App OTP: " + appOtp);
+//        System.out.println("App OTP: " + appOtp);
 
         page.waitForSelector(field_otp);
         page.locator(field_otp).fill(appOtp);

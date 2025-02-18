@@ -502,166 +502,7 @@
 
 
 
-//using this 17/02/25 at 10.44
-package base;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Properties;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserContext;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Tracing;
-
-import factory.PlaywrightFactory;
-import listeners.ExtentReportListener;
-import pages.LoginProcess;
-
-public class BaseTest {
-
-    private static final Logger log = LogManager.getLogger(BaseTest.class); // Logger setup
-
-    protected PlaywrightFactory pf;
-    public Page page;
-    protected Browser browser;
-    protected BrowserContext browserContext;
-    protected LoginProcess loginProcess;
-    protected Properties prop;
-
-    private boolean isTracingStarted = false; // ✅ Track if tracing has started
-
-    @BeforeTest
-    public void setUp() {
-        try {
-            pf = new PlaywrightFactory();
-            prop = pf.init_prop();
-            page = pf.initBrowserWithInputs(prop); // Initialize Playwright and Browser
-            browserContext = page.context();
-            browser = browserContext.browser();
-            loginProcess = new LoginProcess(page);
-
-            // ✅ Start tracing ONLY if browser context is successfully initialized
-            if (browserContext != null) {
-                browserContext.tracing().start(new Tracing.StartOptions()
-                        .setScreenshots(true)
-                        .setSnapshots(true)
-                        .setSources(true));
-                isTracingStarted = true; // ✅ Mark tracing as started
-            }
-
-            log.info("✅ Test Setup completed.");
-        } catch (Exception e) {
-            log.error("❌ Error during test setup: " + e.getMessage(), e);
-        }
-    }
-
-    @AfterMethod
-    public void tearDown(ITestResult result) {
-        String testName = result.getMethod().getMethodName();
-
-        // ✅ Ensure Extent Report instance is available before using it
-        if (ExtentReportListener.test.get() != null) {
-            ExtentReportListener.test.get().getModel().setEndTime(new java.util.Date(result.getEndMillis()));
-
-            // ✅ Capture Screenshot on Failure
-            if (result.getStatus() == ITestResult.FAILURE) {
-                log.error("❌ Test Failed: " + testName, result.getThrowable());
-
-                String screenshotBase64 = captureScreenshot(testName);
-                if (!screenshotBase64.isEmpty()) {
-                    ExtentReportListener.test.get().fail("Screenshot on Failure",
-                            MediaEntityBuilder.createScreenCaptureFromBase64String(screenshotBase64).build());
-                }
-            }
-        } else {
-            log.warn("⚠️ ExtentReport test instance is NULL for test: " + testName);
-        }
-
-        // ✅ Stop tracing ONLY if it was started
-        if (isTracingStarted && browserContext != null) {
-            String traceFolderPath = "D:\\eclipse-workspace\\AHS_NEW\\src\\main\\resources";
-            String traceFileName = "trace_" + testName + ".zip";
-            Path tracePath = Paths.get(traceFolderPath, traceFileName);
-
-            try {
-                if (!Files.exists(tracePath.getParent())) {
-                    Files.createDirectories(tracePath.getParent());
-                }
-
-                browserContext.tracing().stop(new Tracing.StopOptions().setPath(tracePath));
-                log.info("📁 Trace saved to: " + tracePath.toAbsolutePath());
-                isTracingStarted = false; // ✅ Mark tracing as stopped
-            } catch (Exception e) {
-                log.error("⚠️ Failed to save trace: " + e.getMessage(), e);
-            }
-        }
-    }
-
-    @AfterTest
-    public void tearDownAll(ITestContext context) {
-        try {
-            if (isTracingStarted && browserContext != null) {
-                browserContext.tracing().stop();
-                log.info("✅ Tracing stopped.");
-                isTracingStarted = false;
-            }
-            if (browser != null) {
-                browser.close();
-                log.info("🚀 Browser closed successfully.");
-            }
-        } catch (Exception e) {
-            log.error("❌ Error while closing browser: " + e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Capture a screenshot and return it as a Base64-encoded string.
-     *
-     * @param testName Name of the test
-     * @return Base64 encoded screenshot string
-     */
-    private String captureScreenshot(String testName) {
-        try {
-            Path screenshotPath = Paths.get("Screenshots", testName + ".png");
-
-            // Ensure Screenshots directory exists
-            Files.createDirectories(screenshotPath.getParent());
-
-            // Take screenshot and save as PNG
-            page.screenshot(new Page.ScreenshotOptions().setPath(screenshotPath));
-
-            log.info("📸 Screenshot saved: " + screenshotPath.toAbsolutePath());
-
-            // Convert screenshot to Base64
-            byte[] fileContent = Files.readAllBytes(screenshotPath);
-            return java.util.Base64.getEncoder().encodeToString(fileContent);
-
-        } catch (Exception e) {
-            log.error("⚠️ Failed to capture screenshot!", e);
-            return "";
-        }
-    }
-    
-    
-
-}
-
-
-
-
-// updated on 17/02/25 at 11.27
-
+////using this 17/02/25 at 10.44
 //package base;
 //
 //import java.nio.file.Files;
@@ -673,6 +514,7 @@ public class BaseTest {
 //import org.apache.logging.log4j.Logger;
 //import org.testng.ITestContext;
 //import org.testng.ITestResult;
+//import org.testng.annotations.AfterMethod;
 //import org.testng.annotations.AfterTest;
 //import org.testng.annotations.BeforeTest;
 //
@@ -724,39 +566,10 @@ public class BaseTest {
 //        }
 //    }
 //
-//    @AfterTest
-//    public void tearDownAll(ITestContext context) {
-//        log.info("🔻 Starting AfterTest teardown process...");
-//
-//        for (ITestResult result : context.getPassedTests().getAllResults()) {
-//            processTestResult(result);
-//        }
-//
-//        for (ITestResult result : context.getFailedTests().getAllResults()) {
-//            processTestResult(result);
-//        }
-//
-//        for (ITestResult result : context.getSkippedTests().getAllResults()) {
-//            processTestResult(result);
-//        }
-//
-//        try {
-//            if (isTracingStarted && browserContext != null) {
-//                browserContext.tracing().stop();
-//                log.info("✅ Tracing stopped.");
-//                isTracingStarted = false;
-//            }
-//            if (browser != null) {
-//                browser.close();
-//                log.info("🚀 Browser closed successfully.");
-//            }
-//        } catch (Exception e) {
-//            log.error("❌ Error while closing browser: " + e.getMessage(), e);
-//        }
-//    }
-//
-//    private void processTestResult(ITestResult result) {
+//    @AfterMethod
+//    public void tearDown(ITestResult result) {
 //        String testName = result.getMethod().getMethodName();
+//        String testDescription = result.getMethod().getDescription();
 //
 //        // ✅ Ensure Extent Report instance is available before using it
 //        if (ExtentReportListener.test.get() != null) {
@@ -779,7 +592,7 @@ public class BaseTest {
 //        // ✅ Stop tracing ONLY if it was started
 //        if (isTracingStarted && browserContext != null) {
 //            String traceFolderPath = "D:\\eclipse-workspace\\AHS_NEW\\src\\main\\resources";
-//            String traceFileName = "trace_" + testName + ".zip";
+//            String traceFileName = "trace_" + (testDescription != null ? testDescription.replaceAll("\\s+", "_") : testName) + ".zip";
 //            Path tracePath = Paths.get(traceFolderPath, traceFileName);
 //
 //            try {
@@ -793,6 +606,23 @@ public class BaseTest {
 //            } catch (Exception e) {
 //                log.error("⚠️ Failed to save trace: " + e.getMessage(), e);
 //            }
+//        }
+//    }
+//
+//    @AfterTest
+//    public void tearDownAll(ITestContext context) {
+//        try {
+//            if (isTracingStarted && browserContext != null) {
+//                browserContext.tracing().stop();
+//                log.info("✅ Tracing stopped.");
+//                isTracingStarted = false;
+//            }
+//            if (browser != null) {
+//                browser.close();
+//                log.info("🚀 Browser closed successfully.");
+//            }
+//        } catch (Exception e) {
+//            log.error("❌ Error while closing browser: " + e.getMessage(), e);
 //        }
 //    }
 //
@@ -823,4 +653,162 @@ public class BaseTest {
 //            return "";
 //        }
 //    }
+//    
+//
 //}
+
+
+//============================================================================================================================================================
+//============================================================================================================================================================
+
+// updated on 18/02/25 at 11.24 provides the trace for each test with time
+
+package base;
+
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.microsoft.playwright.*;
+
+import factory.PlaywrightFactory;
+import listeners.ExtentReportListener;
+import pages.LoginProcess;
+
+public class BaseTest {
+
+    private static final Logger log = LogManager.getLogger(BaseTest.class); 
+    protected PlaywrightFactory pf;
+    public Page page;
+    protected Browser browser;
+    protected BrowserContext browserContext;
+    protected LoginProcess loginProcess;
+    protected Properties prop;
+
+    private boolean isTracingStarted = false;
+
+    @BeforeTest
+    public void setUp() {
+        try {
+            pf = new PlaywrightFactory();
+            prop = pf.init_prop();
+            page = pf.initBrowserWithInputs(prop);
+            browserContext = page.context();
+            browser = browserContext.browser();
+            loginProcess = new LoginProcess(page);
+
+            log.info("✅ Test Setup completed.");
+        } catch (Exception e) {
+            log.error("❌ Error during test setup: " + e.getMessage(), e);
+        }
+    }
+
+    @BeforeMethod
+    public void startTracing(ITestResult result) {
+        try {
+            if (browserContext != null) {
+                String testName = result.getMethod().getMethodName();
+
+                browserContext.tracing().start(new Tracing.StartOptions()
+                        .setScreenshots(true)
+                        .setSnapshots(true)
+                        .setSources(true));
+
+                isTracingStarted = true;
+                log.info("📍 Started tracing for test: " + testName);
+            }
+        } catch (Exception e) {
+            log.error("⚠️ Failed to start tracing!", e);
+        }
+    }
+
+    @AfterMethod
+    public void tearDown(ITestResult result) {
+        String testName = result.getMethod().getMethodName();
+        String testDescription = result.getMethod().getDescription();
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        if (ExtentReportListener.test.get() != null) {
+            ExtentReportListener.test.get().getModel().setEndTime(new java.util.Date(result.getEndMillis()));
+
+            if (result.getStatus() == ITestResult.FAILURE) {
+                log.error("❌ Test Failed: " + testName, result.getThrowable());
+
+                String screenshotBase64 = captureScreenshot(testName);
+                if (!screenshotBase64.isEmpty()) {
+                    ExtentReportListener.test.get().fail("Screenshot on Failure",
+                            MediaEntityBuilder.createScreenCaptureFromBase64String(screenshotBase64).build());
+                }
+            }
+        } else {
+            log.warn("⚠️ ExtentReport test instance is NULL for test: " + testName);
+        }
+
+        // ✅ Stop tracing & save trace for each test
+        if (isTracingStarted && browserContext != null) {
+            String traceFolderPath = "D:\\eclipse-workspace\\AHS_NEW\\src\\main\\resources";
+            String traceFileName = "trace_" + testName + "_" + timestamp + ".zip";
+            Path tracePath = Paths.get(traceFolderPath, traceFileName);
+
+            try {
+                if (!Files.exists(tracePath.getParent())) {
+                    Files.createDirectories(tracePath.getParent());
+                }
+
+                browserContext.tracing().stop(new Tracing.StopOptions().setPath(tracePath));
+                log.info("📁 Trace saved to: " + tracePath.toAbsolutePath());
+                isTracingStarted = false;
+            } catch (Exception e) {
+                log.error("⚠️ Failed to save trace: " + e.getMessage(), e);
+            }
+        }
+    }
+
+    @AfterTest
+    public void tearDownAll(ITestContext context) {
+        try {
+            if (browser != null) {
+                browser.close();
+                log.info("🚀 Browser closed successfully.");
+            }
+        } catch (Exception e) {
+            log.error("❌ Error while closing browser: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Capture a screenshot and return it as a Base64-encoded string.
+     *
+     * @param testName Name of the test
+     * @return Base64 encoded screenshot string
+     */
+    private String captureScreenshot(String testName) {
+        try {
+            Path screenshotPath = Paths.get("Screenshots", testName + ".png");
+            Files.createDirectories(screenshotPath.getParent());
+
+            page.screenshot(new Page.ScreenshotOptions().setPath(screenshotPath));
+            log.info("📸 Screenshot saved: " + screenshotPath.toAbsolutePath());
+
+            byte[] fileContent = Files.readAllBytes(screenshotPath);
+            return java.util.Base64.getEncoder().encodeToString(fileContent);
+
+        } catch (Exception e) {
+            log.error("⚠️ Failed to capture screenshot!", e);
+            return "";
+        }
+    }
+}
